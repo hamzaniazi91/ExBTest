@@ -4,6 +4,6 @@
 ###### ExB UI DEVELOPMENT TEST #################
 
 
-clone 
-npm install 
-npm run start
+###### git clone   https://github.com/hamzaniazi91/ExBTest.git ######
+######npm install ######
+######npm run start######
