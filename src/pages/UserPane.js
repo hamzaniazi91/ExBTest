@@ -84,8 +84,10 @@ this.setState({ selected: arg1.id });
 filterSearch(text){
     const newData = this.state.items.filter((item)=>{
       const itemData = item.name.toUpperCase()
+      const itemData1 = item.username.toUpperCase()
+      const itemData2 = item.email.toUpperCase() 
       const textData = text.toUpperCase()
-      return itemData.indexOf(textData)>-1
+      return itemData.indexOf(textData)>-1 || itemData1.indexOf(textData)>-1 || itemData2.indexOf(textData)>-1
     });
     this.setState({
       text:text,
@@ -121,10 +123,12 @@ filterSearch(text){
           {searchedItems.map(value => (
             <div key={value.id} onClick={this.onItemClickHandler.bind(this , value)} selected={selected === 2}>
             <ListItem  dense button className={classes.listItem}>
-              <Avatar>W</Avatar>
-              <ListItemText primary={value.name} secondary={value.username} />
-             
-           
+              <Avatar> </Avatar>
+          {/*   <ListItemText primary={value.name} secondary={value.username} />
+         */} 
+           <ListItemText primary={value.name}            
+        secondary={<Typography type="body1" style={{fontSize:'inherit', color:'rgba(0, 0, 0, 0.54)'}}>{value.username} <br></br> {value.email}</Typography>}
+        />
             </ListItem>
           <Divider inset component="li" />
             </div>

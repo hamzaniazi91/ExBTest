@@ -18,6 +18,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SortIcon from '@material-ui/icons/Sort';
 import TablePagination from '@material-ui/core/TablePagination';
+import LinearIndeterminate from '../pages/LinearIndeterminate'
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+
 
 const styles = theme => ({
   root: {
@@ -120,12 +124,23 @@ console.log(recievedPhotos.length)
     const {result , count , anchorEl , rowsPerPage , page} = this.state
 
     const open = Boolean(anchorEl);
-   
+    let Progress;
+    console.log(result)
+    if (result.length <= 0) {
+      Progress = <LinearProgress color="primary"/>;
+    } else {
+      Progress = ''
+    }
 
   return (
+
     <div  className={classes.root}>
 
  <AppBar position="static" color="default">
+   <div className={classes.root2}>
+      
+{Progress}
+    </div>
         <Toolbar>
           <Typography variant="title" color="inherit">
             {count} Photos
