@@ -21,6 +21,10 @@ const theme = createMuiTheme({
     },
   },
 
+  appBar: {
+    height: 50,
+  },
+  
   button:{
     color:'blue'
   }

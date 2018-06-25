@@ -25,7 +25,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
+    // display: 'flex',
     flexGrow: 1,
     flexWrap: 'wrap',
     justifyContent: 'space-around',
@@ -58,7 +58,8 @@ class PhotosPane extends React.Component {
      auth: true,
     anchorEl: null,
     rowsPerPage: 18,
-    page: 0
+    page: 0,
+    firstTime: true
     };
   }
 
@@ -71,6 +72,10 @@ class PhotosPane extends React.Component {
 
       console.log(newProps)
        if(newProps.mergedPhotos !== undefined){
+
+       
+
+
       console.log(newProps.mergedPhotos)
 
      var recievedPhotos = newProps.mergedPhotos;  
@@ -91,6 +96,7 @@ console.log(recievedPhotos.length)
 
           result : ar4,
           count:ar4.length,
+          firstTime:false
         })
 
       }
@@ -114,19 +120,43 @@ console.log(recievedPhotos.length)
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
-    this.setState({ anchorEl: null });
+  handleAcs = () => {
+
+
+let result = this.state.result.sort((a, b) => a.id - b.id)
+
+    this.setState({ 
+
+      anchorEl: null,
+      result : result
+       });
   };
+
+
+  handleDcs = () => {
+
+
+let result = this.state.result.sort((a, b) => b.id - a.id)
+
+    this.setState({ 
+
+      anchorEl: null,
+      result : result
+       });
+  };
+
+
+
 
    render() {
     const { classes } = this.props;
 
-    const {result , count , anchorEl , rowsPerPage , page} = this.state
+    const {firstTime ,result , count , anchorEl , rowsPerPage , page} = this.state
 
     const open = Boolean(anchorEl);
     let Progress;
-    console.log(result)
-    if (result.length <= 0) {
+    console.log(result , firstTime)
+    if (result.length <= 0 && !firstTime) {
       Progress = <LinearProgress color="primary"/>;
     } else {
       Progress = ''
@@ -170,8 +200,8 @@ console.log(recievedPhotos.length)
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>A - Z</MenuItem>
-                  <MenuItem onClick={this.handleClose}>Z - A</MenuItem>
+                  <MenuItem onClick={this.handleAcs}>A - Z</MenuItem>
+                  <MenuItem onClick={this.handleDcs}>Z - A</MenuItem>
                 </Menu>
                 </section>
         </Toolbar>
@@ -189,9 +219,9 @@ console.log(recievedPhotos.length)
      return (
 
 
-      <div key={i}>
+      <div key={f.id}>
 
-       <img src={f.thumbnailUrl} />   
+       <img className="img-responsive" alt="boohoo" src={f.thumbnailUrl} />   
 
        <Typography variant="caption" gutterBottom align="left" >
          {f.title} 
@@ -218,6 +248,8 @@ console.log(recievedPhotos.length)
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
+
+
         />
 
 

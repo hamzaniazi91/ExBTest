@@ -17,6 +17,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchBar from 'material-ui-search-bar'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AlbumPane from '../pages/AlbumPane'
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import SortIcon from '@material-ui/icons/Search';
+import Paper from '@material-ui/core/Paper';
+import Slide from '@material-ui/core/Slide';
 
 const styles = theme => ({
   root: {
@@ -28,6 +33,11 @@ const styles = theme => ({
     flex: {
     flex: 1,
   },
+
+  rightToolbar: {
+    marginLeft: 'auto',
+    marginRight: -12,
+  },
 });
 
 class UserPane extends React.Component {
@@ -38,7 +48,9 @@ class UserPane extends React.Component {
       isLoaded: false,
       items: [],
       searchedItems : [],
-      selected: null
+      selected: null,
+      anchorEl: null,
+      checked: false,
     };
   }
     componentDidMount() {
@@ -95,9 +107,13 @@ filterSearch(text){
     });
   }
 
+    handleChange = () => {
+    this.setState({ checked: !this.state.checked });
+  };
+
   render() {
     const { classes } = this.props;
-    const { error, isLoaded, items ,searchedItems , selected} = this.state;
+    const {checked ,anchorEl, error, isLoaded, items ,searchedItems , selected} = this.state;
     console.log(this.state)
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -107,10 +123,11 @@ filterSearch(text){
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default" children= {
-      <input />
-    } >
-     <SearchBar
+    
+        <AppBar position="static" color="default" in={checked} mountOnEnter unmountOnExit >
+        <Toolbar>
+      <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
+            <SearchBar
      placeholder="Users"
      
     value={this.state.value}
@@ -118,6 +135,46 @@ filterSearch(text){
     onChange={(newValue) => this.filterSearch(newValue)}
     onRequestSearch={this.doSomethingWith(this.state.value)}
   />
+          </Slide>
+          <Typography variant="subheading" color="inherit">
+            Users
+          </Typography>  
+          <section className={classes.rightToolbar}>
+                <IconButton
+                 
+                  aria-haspopup="true"
+                  onClick={this.handleChange}
+                  color="inherit"
+                >
+                  <SortIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleAcs}>A - Z</MenuItem>
+                  <MenuItem onClick={this.handleDcs}>Z - A</MenuItem>
+                </Menu>
+                </section>
+        </Toolbar>
+   {/*  <SearchBar
+     placeholder="Users"
+     
+    value={this.state.value}
+
+    onChange={(newValue) => this.filterSearch(newValue)}
+    onRequestSearch={this.doSomethingWith(this.state.value)}
+  />*/}
       </AppBar>
         <List >
           {searchedItems.map(value => (
