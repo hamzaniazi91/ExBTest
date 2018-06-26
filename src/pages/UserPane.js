@@ -20,8 +20,6 @@ import AlbumPane from '../pages/AlbumPane'
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import SortIcon from '@material-ui/icons/Search';
-import Paper from '@material-ui/core/Paper';
-import Slide from '@material-ui/core/Slide';
 
 const styles = theme => ({
   root: {
@@ -38,6 +36,24 @@ const styles = theme => ({
     marginLeft: 'auto',
     marginRight: -12,
   },
+  listItem: {
+    '&:focus': {
+      backgroundColor: theme.palette.primary.main,
+      '& $primary': {
+        color: theme.palette.common.white,
+      },
+    },
+
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+      '& $primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+
+  primary: {},
+  icon: {},
 });
 
 class UserPane extends React.Component {
@@ -124,10 +140,8 @@ filterSearch(text){
     return (
       <div className={classes.root}>
     
-        <AppBar position="static" color="default" in={checked} mountOnEnter unmountOnExit >
-        <Toolbar>
-      <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
-            <SearchBar
+        <AppBar position="static" color="default"  >
+<SearchBar
      placeholder="Users"
      
     value={this.state.value}
@@ -135,7 +149,9 @@ filterSearch(text){
     onChange={(newValue) => this.filterSearch(newValue)}
     onRequestSearch={this.doSomethingWith(this.state.value)}
   />
-          </Slide>
+
+    {/*     <Toolbar>
+
           <Typography variant="subheading" color="inherit">
             Users
           </Typography>  
@@ -166,7 +182,7 @@ filterSearch(text){
                   <MenuItem onClick={this.handleDcs}>Z - A</MenuItem>
                 </Menu>
                 </section>
-        </Toolbar>
+        </Toolbar>*/}
    {/*  <SearchBar
      placeholder="Users"
      
@@ -183,7 +199,7 @@ filterSearch(text){
               <Avatar> </Avatar>
           {/*   <ListItemText primary={value.name} secondary={value.username} />
          */} 
-           <ListItemText primary={value.name}            
+           <ListItemText  classes={{ primary: classes.primary }} primary={value.name}            
         secondary={<Typography type="body1" style={{fontSize:'inherit', color:'rgba(0, 0, 0, 0.54)'}}>{value.username} <br></br> {value.email}</Typography>}
         />
             </ListItem>

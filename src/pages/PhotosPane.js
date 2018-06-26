@@ -20,6 +20,10 @@ import SortIcon from '@material-ui/icons/Sort';
 import TablePagination from '@material-ui/core/TablePagination';
 import LinearIndeterminate from '../pages/LinearIndeterminate'
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { Image } from 'react-bootstrap';
+import {Alert} from 'react-bootstrap';
+
+
 
 
 
@@ -33,9 +37,9 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    flexWrap: 'nowrap',
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: 'translateZ(0)',
+
+paddingLeft: 52
+
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -43,6 +47,10 @@ const styles = theme => ({
   rightToolbar: {
     marginLeft: 'auto',
     marginRight: -12,
+  },
+  toolbar:{
+
+minHeight:'20px '
   },
 });
 
@@ -155,24 +163,71 @@ let result = this.state.result.sort((a, b) => b.id - a.id)
 
     const open = Boolean(anchorEl);
     let Progress;
+    let Grid;
     console.log(result , firstTime)
     if (result.length <= 0 && !firstTime) {
       Progress = <LinearProgress color="primary"/>;
+     
     } else {
       Progress = ''
+    }
+
+    if(result.length > 0){
+          Grid = <GridList
+   cols={6}
+   className={classes.gridList}
+   cellHeight={100}>
+
+   {result
+    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+    .map((f, i) => {
+     return (
+
+
+      <div style={{    display: 'block',
+      width: 1000,
+    maxWidth: '14.6667%',
+        paddingLeft: '2%',
+    height: 'auto',
+
+  }} key={f.id}>
+
+       <img style={{    display: 'block',
+    maxWidth: '100%',
+    height: 'auto'
+
+  }}  src={f.thumbnailUrl} /> 
+       {/*<Image src={f.thumbnailUrl} responsive   />   */}
+
+
+       <Typography style={{lineHeight: 1}}
+ variant="caption" gutterBottom align="left" >
+         {f.title} 
+
+        </Typography>
+
+       
+       </div>
+      )
+   })}
+ </GridList>
+    }
+
+    else{
+       Grid = <Typography type="body1" style={{fontSize:'inherit', color:'rgba(0, 0, 0, 0.54)'}}> Please Select Album First </Typography>
     }
 
   return (
 
     <div  className={classes.root}>
 
- <AppBar position="static" color="default">
-   <div className={classes.root2}>
+
+   <div>
       
 {Progress}
     </div>
-        <Toolbar>
-          <Typography variant="title" color="inherit">
+        <Toolbar className={classes.toolbar}>
+          <Typography variant="subheading" color="inherit">
             {count} Photos
           </Typography>
 
@@ -200,39 +255,15 @@ let result = this.state.result.sort((a, b) => b.id - a.id)
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleAcs}>A - Z</MenuItem>
-                  <MenuItem onClick={this.handleDcs}>Z - A</MenuItem>
+                  <MenuItem onClick={this.handleAcs}>Asc</MenuItem>
+                  <MenuItem onClick={this.handleDcs}>Dsc</MenuItem>
                 </Menu>
                 </section>
         </Toolbar>
-      </AppBar>
+     
 
-<GridList
-   cols={6}
-   style={styles.gridList}
-   cellHeight={210}>
-   {/*rows={3}*/}
+{Grid}
 
-   {result
-    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    .map((f, i) => {
-     return (
-
-
-      <div key={f.id}>
-
-       <img className="img-responsive" alt="boohoo" src={f.thumbnailUrl} />   
-
-       <Typography variant="caption" gutterBottom align="left" >
-         {f.title} 
-
-        </Typography>
-
-       
-       </div>
-      )
-   })}
- </GridList>
 
 
   <TablePagination

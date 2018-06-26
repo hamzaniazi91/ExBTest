@@ -17,6 +17,10 @@ import AddIcon from '@material-ui/icons/Add';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Modal from '@material-ui/core/Modal';
+import IconButton from '@material-ui/core/IconButton';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import SortIcon from '@material-ui/icons/Sort';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -58,6 +62,8 @@ const styles2 = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
+
+   
 });
 
 const styles = {
@@ -75,7 +81,7 @@ const styles = {
     padding:  100,
   },
   label: {
-    fontSize: 12,
+    fontSize: '70%',
     textAlign: 'left'
   },
    div:{
@@ -87,7 +93,7 @@ const styles = {
 
   },
      button3: {
-      paddingBottom:36,
+/*      paddingBottom:36,*/
   },
   cont:{
 backgroundColor:'white'
@@ -103,6 +109,14 @@ backgroundColor:'white'
   },
   sizeIcon: {
     fontSize: 20,
+  },
+   rightToolbar: {
+    marginLeft: 'auto',
+    marginRight: -12,
+  },
+  toolbar:{
+
+minHeight:'20px '
   },
 };
 
@@ -243,6 +257,13 @@ const mergedPhotos = this.state.mergedPhotos
   };
 
 
+  handleMenu = event => {
+    console.log("select all")
+  };
+
+
+
+
 
  
 
@@ -252,15 +273,44 @@ const mergedPhotos = this.state.mergedPhotos
 const {albums} = this.state;
   return (
     <div style={styles.cont}>
- <AppBar position="static" color="default">
-        <Toolbar>
-          <Typography variant="title" color="inherit">
+ 
+        <Toolbar className={classes.toolbar}>
+          <Typography variant="subheading" color="inherit">
             Albums
           </Typography>  
-        </Toolbar>
-      </AppBar> 
 
-    <Grid container spacing={8}>
+          <section className={classes.rightToolbar}>
+               <FormGroup row>
+        <FormControlLabel
+         classes={{
+        label: classes.label,
+      }}
+          control={
+            <Checkbox
+             
+              onChange={this.handleChange.bind(this , "SelectALL")}
+
+              value="checkedA"
+
+              classes={{
+                root: classes.root,
+                checked: classes.checked,
+              }}
+             
+              
+            />
+          }
+          label="Select All"
+
+        />
+ 
+      </FormGroup>
+               
+                </section>
+        </Toolbar>
+      
+
+    <Grid container spacing={7}>
 {albums.map(key =>
       
         <Grid key={key.id} item xs={3}>
@@ -299,9 +349,7 @@ const {albums} = this.state;
    
       )}
 
-
-   </Grid>
-<div style={styles.button3}>
+<div style={styles.button3} className={classes.rightToolbar}>
    <Button onClick={this.handleOpen}  style={styles.button2} variant="fab" color="primary" aria-label="add" className={classes.button}>
         <AddIcon />
       </Button>
@@ -322,6 +370,8 @@ const {albums} = this.state;
           </div>
         </Modal>
 </div>
+   </Grid>
+
 
     </div>
   );

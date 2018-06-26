@@ -32,28 +32,26 @@ const styles  = ({
     background : '#f3f3f3'
   },
   paperLeft:{
-    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
-    flex: 1,
-
-    margin: 10,
+   
+    flex: 0,
+ // boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
+    /*margin: 10,
     textAlign: 'center',
-    padding: 10,
+    padding: 10,*/
    
   },
 
   paperRightTop:{
-     boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
-    
+
     flex: 4,
-    
+     boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
     marginBottom : 25,
     textAlign: 'center',
   },
   paperRight:{
+
+       flex: 4,
      boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
-    
-    flex: 4,
-  
     textAlign: 'center',
   }
 });
@@ -122,7 +120,7 @@ class Index extends React.Component {
         <div style={styles.div}>
          <Grid  container spacing={24}>
        
-               <Grid   style={styles.paperLeft} item xs={12} lg={3}>
+               <Grid   style={styles.paperLeft} item xs={12} >
                     <UserPane   className={classes.paper} change={this.handleFilterUpdate2} name={this.state.userid}  ></UserPane>
              
                 </Grid>
