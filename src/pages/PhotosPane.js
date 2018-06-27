@@ -20,8 +20,6 @@ import SortIcon from "@material-ui/icons/Sort";
 import TablePagination from "@material-ui/core/TablePagination";
 import LinearIndeterminate from "../pages/LinearIndeterminate";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { Image } from "react-bootstrap";
-import { Alert } from "react-bootstrap";
 
 const styles = theme => ({
   root: {

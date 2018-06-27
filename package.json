@@ -9,12 +9,9 @@
     "material-ui-search-bar": "^1.0.0-beta.7",
     "prop-types": "latest",
     "react": "latest",
-    "react-bootstrap": "^0.32.1",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "latest",
-    "react-image-responsive": "^2.0.2",
-    "react-responsive-picture": "^2.1.0",
     "react-scripts": "latest"
   },
   "scripts": {
